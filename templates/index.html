@@ -1,17 +1,23 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Weather Report{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>There is currently weather in {{weather_json['name']|capitalize}}
+    <h1>Current weather in {{weather_json['name']|title}}
     <img src="http://openweathermap.org/img/w/{{weather_json['weather'][0]['icon']}}.png" alt="Current Weather Icon"></h1>
 </div>
 
 	<h1>{{ weather_json['weather'][0]['main'] }}:
     	{{ weather_json['weather'][0]['description'] }}</h1>
     <h1>Temperature: {{ weather_json['main']['temp'] }}</h1>
+	<h1>Last Update was {{ strftime('%H:%M:%S', localtime(weather_json['dt'])) }}</h1>
 
+{{ wtf.quick_form(form) }}
+
+<div class="page-footer">
 <p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
 <p>That was {{ moment(current_time).fromNow(refresh=True) }}.</p>
+</div>
 {% endblock %}

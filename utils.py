@@ -1,5 +1,7 @@
 import requests
-API_KEY = "9b261da09793707fb815e0108aa5b43d"    # From openweathermap.org username: bernpuc@gmail.com
+import settings
+
+API_KEY = settings.OPENWEATHER_APIID    # From openweathermap.org username: bernpuc@gmail.com
 WEATHER_URL = "http://api.openweathermap.org/"
 
 def get_weather_json(location = 'naugatuck,us'):
@@ -14,7 +16,12 @@ def get_weather_json(location = 'naugatuck,us'):
         return {'weather':[{'main':r.status_code}]}
     return r.json()
 
+# TODO
+# CITY LIST
+# http://openweathermap.org/help/city_list.txt
+#
+
 if __name__ == '__main__':
     data = get_weather_json()
-    #print data
+    print data
     print data['weather'][0]['main']
